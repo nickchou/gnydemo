@@ -7,7 +7,11 @@ import (
 	"html/template"
 )
 func Index(w http.ResponseWriter, r *http.Request){
-	io.WriteString(w, "hello  golang!")
+	ip:= r.Header.Get("Remote_addr")
+	if(ip == ""){
+		ip = "Addr:"+r.RemoteAddr
+	}
+	io.WriteString(w, "hello!"+ip)
 }
 func DefHandle(w http.ResponseWriter, r *http.Request){
 	if r.URL.Path == "/" {
