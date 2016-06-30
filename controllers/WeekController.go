@@ -21,24 +21,23 @@ func Week(w http.ResponseWriter, r *http.Request) {
 	s08 := entity.Staff{JobNum: "17009", Name: "夏刚"}
 	s09 := entity.Staff{JobNum: "21347", Name: "刘若翰"}
 	s10 := entity.Staff{JobNum: "26298", Name: "李旦"}
-	//musics:= []entity.Staff
-	ss := make([]entity.Staff, 0)
-	ss = append(ss, s01, s02, s03, s04, s05, s06, s07, s08, s09, s10)
+	//slice申明方法1
+	ss := []entity.Staff{s01, s02, s03, s04, s05, s06, s07, s08, s09, s10}
+	//slice申明方法2
+	//ss := make([]entity.Staff, 0)
+	//ss = append(ss, s01, s02, s03, s04, s05, s06, s07, s08, s09, s10)
 	t := time.Date(2016, 5, 31, 0, 0, 0, 0, time.Local)
 	//t := time(2016, 5, 31)
 	i := 0
-
-	//table  style
+	//table style
 	buffer.WriteString("<style type='text/css'>")
 	buffer.WriteString("table{font-family:verdana,arial,sans-serif;font-size:11px;color:#333333;border-width:1px;border-color: #666666;border-collapse: collapse;}")
 	buffer.WriteString("table th {border-width: 1px;padding: 8px;border-style: solid;border-color: #666666;	background-color: #dedede;}")
 	buffer.WriteString("table td {border-width: 1px;padding: 8px;border-style: solid;border-color: #666666;background-color: #ffffff;}")
 	buffer.WriteString("</style>")
-
-	if len(ss) > 0 {
-		buffer.WriteString("<table>")
-		buffer.WriteString("<tr><td>工号</td><td>姓名</td><td>主持周会日期</td></tr>")
-	}
+	//table
+	buffer.WriteString("<table>")
+	buffer.WriteString("<tr><td>工号</td><td>姓名</td><td>主持周会日期</td></tr>")
 	for t.Year() < 2017 {
 		if i == len(ss) {
 			i = 0
@@ -49,9 +48,8 @@ func Week(w http.ResponseWriter, r *http.Request) {
 		i++
 		t = t.AddDate(0, 0, 7)
 	}
-	if len(ss) > 0 {
-		buffer.WriteString("</table>")
-	}
+	buffer.WriteString("</table>")
+	//response
 	io.WriteString(w, buffer.String())
 	//io.WriteString(w, strconv.Itoa(len(ss)))
 	//io.WriteString(w, "hi  i'm week")
