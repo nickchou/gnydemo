@@ -2,12 +2,15 @@ package controllers
 
 import (
 	"bytes"
+
 	"io"
 	"net/http"
 	"time"
 
 	"github.com/nickchou/gnydemo/entity"
 )
+
+//	"compress/gzip"
 
 func Week(w http.ResponseWriter, r *http.Request) {
 	var buffer bytes.Buffer
@@ -50,7 +53,17 @@ func Week(w http.ResponseWriter, r *http.Request) {
 	}
 	buffer.WriteString("</table>")
 	//response
+	w.Header().Set("content-type", "text/html; charset=utf-8")
+
+	//var b bytes.Buffer
+	//ww := gzip.NewWriter(&b)
+	//defer ww.Close()
+
+	//ww.Write(buffer.String())
+
+	//gzip.Writer(w)
 	io.WriteString(w, buffer.String())
+	//w.Write(b)
 	//io.WriteString(w, strconv.Itoa(len(ss)))
 	//io.WriteString(w, "hi  i'm week")
 }
