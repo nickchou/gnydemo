@@ -18,7 +18,7 @@ func main() {
 	//注册静态文件
 	//http.Handle("/css/", http.FileServer(http.Dir("static")))
 	//http.Handle("/script/", http.FileServer(http.Dir("static")))
-	//http.Handle("/image/", http.FileServer(http.Dir("static")))
+	http.Handle("/image/", http.FileServer(http.Dir("static")))
 
 	//reg handleFunc,see route.go
 	http.HandleFunc("/index", Index)
